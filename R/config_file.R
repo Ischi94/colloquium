@@ -17,8 +17,8 @@ ggplot2::theme_update(text = element_text(colour = "grey20", size = 10),
                                                    face =  "italic"))
 
 # define output sizes
-image_width <- 183
-image_height <- 100
+image_width <- 220
+image_height <- 120
 image_units <- "mm"
 image_dpi <- 500
 
@@ -27,4 +27,5 @@ colour_yellow = "#EEb462"
   colour_purple = "#534666"
     colour_mint = "#138086"
       colour_grey = "grey55"
-        colour_coral = "#CD7672"
+        colour_red = "#C75E6B"
+          colour_blue = "#196AA5"
