@@ -95,9 +95,9 @@ plot_ext <- dat_ext %>%
   scale_colour_manual(values = c(colour_blue, colour_red)) +
   scale_fill_manual(values = c(colour_blue, colour_red)) +
   scale_x_continuous(limits = c(-0.2, 0.5), 
-                     label = label_percent(suffix = "")) +
+                     label = label_percent()) +
   scale_y_discrete(expand = expansion(mult = c(0.06, 0.14))) +
-  labs(y = NULL, x = "Change in extinction risk [%]") +
+  labs(y = NULL, x = "Change in extinction risk") +
   theme(panel.grid.major = element_line(colour = "grey97"), 
         text = element_text(colour = "grey20", size = 15), 
         axis.text = element_text(colour = "grey40", size = 15), 
