@@ -14,6 +14,9 @@ dat_pollen <- read_rds(here("data",
 dat_rope <- read_rds(here("data",
                           "pollen_rope.rds"))
 
+# ecozone data
+dat_eco <- read_rds(here("data", 
+                         "ecozone_data.rds"))
 
 
 # ratios ------------------------------------------------------------------
@@ -214,6 +217,68 @@ plot_risk_change <- dat_risk_change %>%
 ggsave(plot_risk_change, filename = here("figures",
                                          "risk_change_3.png"), 
        width = image_width,
+       height = image_height*1.4,
+       dpi = image_dpi,
+       units = image_units, 
+       bg = "white", device = ragg::agg_png)
+
+
+
+# ecozones ----------------------------------------------------------------
+
+
+# visualize
+plot_eco <- dat_eco %>% 
+  drop_na(ecozone) %>% 
+  ggplot(aes(dist_ratio, ecozone)) +
+  geom_rect(aes(xmin = dat_rope$ci_low[4], 
+                xmax = dat_rope$ci_high[4], 
+                ymin = -Inf, ymax = Inf), 
+            fill = "grey90", alpha = 0.1, colour = NA) +
+  geom_vline(xintercept = 1, 
+             colour = colour_yellow) +
+  stat_pointinterval(aes(colour = pal_int),
+                     position = position_dodge(width = -0.3),
+                     show.legend = FALSE,
+                     point_size = 2,
+                     point_fill = "white",
+                     shape = 21,
+                     point_alpha = 1,
+                     alpha = 0.7) +
+  annotate(geom = "label", 
+           x = 2.8, y = 3.6, label = "ROPE", 
+           colour = colour_grey, 
+           size = 14/.pt, 
+           label.size = 0) +
+  annotate(geom = "curve",
+           x = 2.7, xend = 1.2,
+           y = 3.2, yend = 1.3,
+           curvature = -0.25,
+           colour = "grey70",
+           arrow = arrow(length = unit(.2,"cm"))) +
+  labs(y = NULL, x = "Turnover Ratio") + 
+  guides(colour = guide_legend(override.aes = list(alpha = 1))) +
+  scale_color_manual(values = c(colour_blue, colour_red), 
+                     name = "Paleoclimate Interaction", 
+                     labels = c("Cooling-Cooling", 
+                                "Warming-Warming")) +
+  scale_x_continuous(trans = scales::pseudo_log_trans(base = exp(1)), 
+                     breaks = c(0:30), 
+                     labels = c("0.1", as.character(1:8),
+                                "", "10", 
+                                rep("", 4), "15", 
+                                rep("", 9), "25", 
+                                rep("", 5))) +
+  coord_cartesian(xlim = c(0, 25), clip = "off") +
+  theme(panel.grid.major = element_line(colour = "grey97"), 
+        text = element_text(colour = "grey20", size = 15), 
+        axis.text = element_text(colour = "grey40", size = 15), 
+        legend.position = "none")
+
+# save plot
+ggsave(plot_eco, filename = here("figures",
+                                 "eco_2.png"), 
+       width = image_width*1.4,
        height = image_height*1.4,
        dpi = image_dpi,
        units = image_units, 
