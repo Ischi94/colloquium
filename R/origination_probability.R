@@ -16,7 +16,8 @@ plot_ori <- ggplot(prob, aes(x = pal.int,
                  fill = pal.int)) + 
   geom_hline(yintercept = av) +
   geom_violin() +
-  scale_fill_manual(values = c("#354E71", "#354E71","#841F27", "#841F27"))+
+  scale_fill_manual(values = c(colour_blue, colour_blue, 
+                               colour_red, colour_red))+
   scale_y_continuous(name = "Origination Probability", limits = c(0, 0.3), 
                      breaks = seq(0, 0.3, by = 0.05), 
                      labels = scales::percent_format(accuracy = 1)) +
@@ -25,12 +26,12 @@ plot_ori <- ggplot(prob, aes(x = pal.int,
   ggnewscale::new_scale_fill() +
   see::geom_violinhalf(data = filter(prob, pal.int == "CW" | pal.int == "WC"),
                        aes(colour = pal.int, fill = pal.int)) +
-  scale_fill_manual(values = c("#841F27", "#354E71")) +
-  scale_colour_manual(values=c("#841F27", "#354E71")) +
+  scale_fill_manual(values = c(colour_red, colour_blue)) +
+  scale_colour_manual(values=c(colour_red, colour_blue)) +
   # add grey lines to visualise medians per group
   stat_summary(fun = median, fun.min = median, fun.max = median,
                geom = "crossbar", width = c(0.915, 0.35, 0.53, 0.42),
-               colour = "grey60") +
+               colour = "grey55") +
   # add outer layer
   geom_violin(fill = NA) +
   # add arrows
