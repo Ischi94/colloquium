@@ -33,8 +33,8 @@ plot_song <- dat_song %>%
                             "yes", "no")) %>% 
   ggplot(aes(y = abs_delta, 
              x = abs_r)) +
-  geom_hline(yintercept = 6, 
-             colour = "grey30", 
+  geom_hline(yintercept = 6,
+             colour = "grey30",
              linetype = "dotted") +
   geom_vline(xintercept = 10,
              colour = "grey30",
@@ -48,19 +48,25 @@ plot_song <- dat_song %>%
   geom_point(aes(fill = mass_ext), 
              size = 4,
              shape = 21, 
-             colour = "grey30") +
-  scale_fill_manual(values = c(colour_grey, colour_yellow)) +
+             colour = "grey40") +
+  scale_fill_manual(values = c("grey90", colour_yellow)) +
   scale_x_log10(breaks = trans_breaks("log10", function(x) {10^x}),
                 labels = trans_format("log10", math_format(10^.x))) +
   coord_cartesian(xlim = c(0.1, 300), 
                   ylim = c(-2, 12)) +
-  theme(legend.position = "None") +
   labs(x = "Rate of temperature change [°C/Myr]", 
-       y = "Temperature change [°C]")
+       y = "Temperature change [°C]", 
+       title = "Palaeontology") +
+  theme(panel.grid.major = element_line(colour = "grey97"), 
+        text = element_text(colour = "grey20", size = 15), 
+        plot.title = element_text(colour = "grey20", size = 15),
+        axis.text = element_text(colour = "grey40", size = 15), 
+        legend.position = "none", 
+        axis.ticks.y = element_blank())
 
 # save plot
 ggsave(plot_song, filename = here("figures",
-                                  "song_4.png"), 
+                                  "song_5.png"), 
        width = image_width/1.5,
        height = image_height,
        dpi = image_dpi,
