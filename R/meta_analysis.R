@@ -60,6 +60,11 @@ plot_meta <- dat_cohen_ov %>%
                                              0, 0.1, 0)), 
              shape = 21, 
              size = 3) +
+  geom_text(aes(mean_est + 0.85, scale, label = study), 
+            position = position_nudge(y = c(0, -0.4, 0, 0, 
+                                            0, 0.4, -0.23)), 
+            colour = "grey60",
+            size = 11/.pt) +
   annotate("text", x = 1.45, y = 1600,
            label = "Overall", size = 11/.pt,
            colour = "#de970bff") +
@@ -72,8 +77,10 @@ plot_meta <- dat_cohen_ov %>%
                          ends = c(rep("both", 4), "first")),
            colour = "grey40",
            linewidth = 0.3) +
-  annotate("label", x = c(0.25, 0.65,
-                          1, 1.58, 2.6), y = 0.2,
+  annotate("label", 
+           x = c(0.25, 0.65,
+                 1, 1.58, 2.6), 
+           y = 0.2,
            label = c("small", "medium",
                      "large", "very large",
                      "huge"),
@@ -83,8 +90,8 @@ plot_meta <- dat_cohen_ov %>%
   labs(y = "Temporal scale of the climate legacy\nin years", 
        x = "Effect size expressed as Cohen's d") +
   coord_cartesian(xlim = c(0, 3.3)) +
-  scale_color_manual(values = c("grey80", "#de970bff")) + 
-  scale_fill_manual(values = c("white", "#de970bff")) +
+  scale_color_manual(values = c("grey70", "#de970bff")) + 
+  scale_fill_manual(values = c("white", "#de970bff")) + 
   scale_y_continuous(trans = "log10", 
                      breaks = c(10e0, 10e2, 
                                 10e4, 10e6), 
@@ -101,7 +108,7 @@ plot_meta <- dat_cohen_ov %>%
 ggsave(plot_meta, filename = here("figures",
                                  "meta_4.png"), 
        width = image_width*1.4,
-       height = image_height*1.4,
+       height = image_height*1.2,
        dpi = image_dpi,
        units = image_units, 
        bg = "white", device = ragg::agg_png)
